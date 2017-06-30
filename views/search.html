@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title><%= title %></title>
+    <link href="/stylesheets/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+     <style type="text/css">
+          body{background-image: url("/images/7.jpg")}
+    </style>
+   </head>
+  <body>
+  <div class="row">
+  <div class="col-lg-4"></div>
+  <div class="col-lg-4">
+  <h1 class="container">房屋产权信息查询</h1>
+ <div class="input-group">
+      <input type="text" class="form-control" id="houseid" placeholder="请输入房产证号">
+      <span class="input-group-addon" type="button" id ="search">搜索</span>
+ </div>
+ <div class="form-group">
+      <label for="userName">用户名/房主姓名</label>
+      <input type="text" class="form-control required" id="username" placeholder="UserName" name="username"/>
+ </div>
+ <div class="form-group">
+      <label for="idNumber">身份证号</label>
+      <input type="text" class="form-control required" id="idnumber" placeholder="IdNumber" name="idnumber"/>
+    </div>
+     <div class="form-group">
+      <label for="contactNumber">联系电话</label>
+      <input type="text" class="form-control required" id="contactnumber" placeholder="ContactNumber" name="contactnumber"/>
+    </div>
+ <div class="col-lg-4"></div>
+ 
+  </div>
+   <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="/stylesheets/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+  <script type="text/javascript">
+    $(function(){
+      $('#search').click(function(){
+        alert('开始查询');
+        var houseid = $('#houseid').val();
+        $.ajax({
+          url:'/search1',
+          data:{houseid:houseid},
+          contentType:"application/json",
+          dataType:'json',
+          success:function(data){
+            $('#username').val(data.username);
+            $('#idnumber').val(data.idnumber);
+            $('#contactnumber').val(data.contactnumber);
+        },
+         error:function(err){
+          alert("出错:"+ err);
+        }
+      });
+    }); 
+  });     
+</script>
+  </body>
+</html>
+

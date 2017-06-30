@@ -1,0 +1,107 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title><%= title %></title>
+    <link href="/stylesheets/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+     <style type="text/css">  
+          body{background: pink}
+    </style>  
+   </head>
+  <body>
+    <div class="container">
+     <div class="col-md-4"></div>
+     <div class="col-md-4">
+     <h1 class="container">房屋产权注册</h1>
+    <div class="form-group">
+      <label>用户名/房主姓名</label>
+      <input type="text" class="form-control required" id="userName" placeholder="Username" name="username"/>
+    </div>
+    <div class="form-group">
+      <label>身份证号</label>
+      <input type="text" class="form-control required" id="idNumber" placeholder="PeopleNumber" name="peoplenumber"/>
+    </div>
+     <div class="form-group">
+      <label for="inputNumber2">联系电话</label>
+      <input type="text" class="form-control required" id="contactNumber" placeholder="PhoneNumber" name="phonenumber"/>
+    </div>
+    <div class="form-group">
+      <label>房产证号</label>
+      <input type="text" class="form-control required" id="houseId" placeholder="HouseNumber" name="housenumber"/>
+    </div>
+    <div class="form-group">
+      <label>设置密码</label>
+      <input type="password" class="form-control required" id="setPassword" placeholder="Password" name="password"/>
+    </div>
+    <div class="form-group">
+      <label>确认密码</label>
+      <input type="password" class="form-control required" id="confirmPassword" placeholder="Re-type Your Password" name="rpassword"/>
+    </div>
+    </div>
+   <div class="col-md-12">
+   <div class="col-md-4"></div>
+   <div class="col-md-4">
+   <div class="form-group">
+      <input type="button" class="btn btn-success pull-left" id = "register" value="注册"/>  
+      <input type="button" class="btn btn-info pull-right" id="cancel" value="取消"/>
+   </div>
+   <div class="col-md-4"></div>
+   </div>
+   </div>
+   </div>
+  </div>
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="/stylesheets/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+  $(function(){ 
+    $("#register").click(function(){
+     alert("注册成功");
+     var username=$("#userName").val();
+     var idnumber =$('#idNumber').val();
+     var contactnumber = $('#contactNumber').val();
+     var houseid = $('#houseId').val();
+     var password = $('#setPassword').val();
+     var repassword = $('#confirmPassword').val();
+     	if(password !== repassword){
+     		$('#setPassword').css('border','1px solid red');
+     		$('#confirmPassword').css('border','1px solid red');
+     	}else if(password === repassword){
+     		var house = {username:username,idnumber:idnumber,contactnumber:contactnumber,houseid:houseid,password:password,repassword:repassword};
+     $.ajax({
+       url:"/register1",
+       data:JSON.stringify(house),
+       type: "POST",
+       contentType:"application/json",
+       success:function(data,status){
+       	if(status == 'success'){
+          alert("成功");
+
+         }
+       },
+       error:function(data,err){
+       	 if(status == 'error'){
+          alert("出错:"+err);
+         }
+       }
+   });
+  }
+     
+});
+     $('#cancel').click(function(){
+       $("#userName").val("");
+       $('#idNumber').val("");
+       $('#contactNumber').val("");
+       $('#houseId').val("");
+       $('#setPassword').val("");
+       $('#confirmPassword').val("");  
+     });
+    
+   });
+</script>
+  </body>
+</html>
+
